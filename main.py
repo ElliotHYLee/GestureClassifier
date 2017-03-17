@@ -10,7 +10,7 @@ def train(opts):
 	m = Model(opts)
 	saver = tf.train.Saver()
 	[x,y] = Reader().get_next_batch()
-	with tf.Session() as sess:
+	 with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
 		for epoch in range(opts.max_epochs):
 			if Path(opts.save_path+'checkpoint').is_file():
