@@ -11,23 +11,33 @@ class Reader():
 		#features_here = np.random.rand(1000000,5) * 10 - 5;
 		#labels_here = [ np.sum(features_here,axis=1) , np.mean(features_here,axis=1)]
 		#return [np.float32(features_here) , np.float32(np.transpose(labels_here))]
-		with open('Train.csv', newline='' ) as csvFile:
+		with open('Train_8.csv', newline='' ) as csvFile:
 			reader = csv.reader(csvFile, delimiter = ' ', quotechar='|')
-			x = list(reader)
-			result = np.array(x).astype("float32")
+			data = list(reader)
+			result = np.array(data).astype("float32")
 			numCol = result.shape[1]
+			numRow = result.shape[0]
 			#print(numCol)
 			#print(result)
 			y = result[:,0]
+			#print(y)
+			label = np.transpose(y)
+			#print(label)
 			x = result[:,1:numCol]
-			return [x, y]
+			return [x, label.reshape(numRow,1)]
 
 	def get_test_data(self):
-		labels_here = []
-		features_here = []
-
-		features_here.append([ -1.5, 2.5, -4.5, 3.5, -2.5 ])
-		labels_here.append( [-2.5 , -0.5] )
-		features_here.append([ +1.5, -2.5, -4.5, 2.5, 4.5 ])
-		labels_here.append( [ 1.5, 0.3] )
-		return [np.float32(features_here) , np.float32(labels_here)]
+		with open('Test_8.csv', newline='' ) as csvFile:
+			reader = csv.reader(csvFile, delimiter = ' ', quotechar='|')
+			data = list(reader)
+			result = np.array(data).astype("float32")
+			numCol = result.shape[1]
+			numRow = result.shape[0]
+			#print(numCol)
+			#print(result)
+			y = result[:,0]
+			#print(y)
+			label = np.transpose(y)
+			#print(label)
+			x = result[:,1:numCol]
+		return [x , y]

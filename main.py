@@ -10,7 +10,7 @@ def train(opts):
 	m = Model(opts)
 	saver = tf.train.Saver()
 	[x,y] = Reader().get_next_batch()
-	 with tf.Session() as sess:
+	with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
 		for epoch in range(opts.max_epochs):
 			if Path(opts.save_path+'checkpoint').is_file():
@@ -31,8 +31,23 @@ def test(opts):
 		saver.restore(sess,opts.save_path)
 		[x,y] = Reader().get_test_data()
 		estimated_y = m.test(sess, x)
-		print(y)
-		print(estimated_y)
+		index = 0;
+		sum = 0;
+		for est_y in estimated_y:
+			des_y = y[index]
+			est_y = np.round(est_y)
+			if (est_y[0]==des_y):
+				sum = sum + 1;
+			#print(sum)
+			#a = [est_y[0],  des_y]
+			#print(a)
+			index =  index + 1
+
+		accuracy = sum/12000
+		print("accuracy: ", np.round(accuracy,2))
+
+		#print(y)
+		#print(estimated_y)
 
 if __name__ == '__main__':
 	if sys.argv[1] == 'Train':
