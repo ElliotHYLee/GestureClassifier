@@ -9,7 +9,7 @@ import sys
 def train(opts):
 	m = Model(opts)
 	saver = tf.train.Saver()
-	[x,y] = Reader().get_next_batch()     #-----test
+	[x,y] = Reader().get_next_batch()     #-----test	
 	with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
 		for epoch in range(opts.max_epochs):
@@ -22,7 +22,6 @@ def train(opts):
 
 			sess.run(tf.assign(m.epoch_number,m.epoch_number+1))
 			saver.save(sess,opts.save_path)
-
 def test(opts):
 	m = Model(opts)
 	saver = tf.train.Saver()
