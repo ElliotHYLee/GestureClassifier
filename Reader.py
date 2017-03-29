@@ -28,8 +28,8 @@ class Reader():
 			return [x, label.reshape(numRow,1)]
 
 	def get_test_data(self):
-		with open('Test_3.csv', newline='' ) as csvFile:
-			reader = csv.reader(csvFile, delimiter = ',', quotechar='|')
+		with open('Test.csv', newline='' ) as csvFile:
+			reader = csv.reader(csvFile, delimiter = ' ', quotechar='|')
 			data = list(reader)
 			result = np.array(data).astype("float32")
 			numCol = result.shape[1]
