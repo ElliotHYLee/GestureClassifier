@@ -20,12 +20,12 @@ class Reader():
 			numRow = result.shape[0]
 			#print(numCol)
 			#print(result)
-			y = result[:,0]
+			y = result[:,0:8]
 			#print(y)
 			label = np.transpose(y)
-			#print(label)
-			x = result[:,1:numCol]
-			return [x, label.reshape(numRow,1)]
+			print(np.shape(label))
+			x = result[:,8:numCol]
+			return [x, label.reshape(numRow,8)]
 
 	def get_test_data(self):
 		with open('Test.csv', newline='' ) as csvFile:
@@ -36,9 +36,9 @@ class Reader():
 			numRow = result.shape[0]
 			#print(numCol)
 			#print(result)
-			y = result[:,0]
+			y = result[:,0:8]
 			#print(y)
 			label = np.transpose(y)
 			#print(label)
-			x = result[:,1:numCol]
-		return [x , y]
+			x = result[:,8:numCol]
+		return [x , label.reshape(numRow,8)]

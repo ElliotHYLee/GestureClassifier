@@ -33,9 +33,14 @@ def test(opts):
 		index = 0;
 		sum = 0;
 		for est_y in estimated_y:
-			des_y = y[index]
-			est_y = np.round(est_y)
-			if (est_y[0]==des_y):
+			#des_y = y[index]
+			des_y = np.argmax(y[index])
+			#print(hhh)
+			print(des_y)
+			est_y = np.argmax(est_y)
+			#print(est_y , des_y)
+			#est_y = np.round(est_y)
+			if (est_y==des_y):
 				sum = sum + 1;
 			#print(sum)
 			#a = [est_y[0],  des_y]

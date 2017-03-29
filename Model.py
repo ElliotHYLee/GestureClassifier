@@ -43,10 +43,12 @@ class Model():
 		ans_here_3 = tf.nn.sigmoid( tf.matmul(ans_here_2, self.w[2]) + self.b[2])
 		ans_here_4 = tf.nn.sigmoid( tf.matmul(ans_here_3, self.w[3]) + self.b[3])
 		ans_here_5 = tf.nn.sigmoid( tf.matmul(ans_here_4, self.w[4]) + self.b[4])
-		ans_here_6 =  tf.matmul(ans_here_5, self.w[5]) + self.b[5]
+		ans_here_6 =  tf.nn.sigmoid(tf.matmul(ans_here_5, self.w[5]) + self.b[5])
 		return ans_here_6
 
 	def train(self, sess, x, y):
+		#print(y)
+		y = random.random(1998,112)
 		cost , _   = sess.run([self.cost,  self.optimizer ], {self.input: x, self.desired_output: y   })
 		return cost
 
