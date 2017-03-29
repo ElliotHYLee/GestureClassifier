@@ -48,7 +48,6 @@ class Model():
 
 	def train(self, sess, x, y):
 		#print(y)
-		y = random.random(1998,112)
 		cost , _   = sess.run([self.cost,  self.optimizer ], {self.input: x, self.desired_output: y   })
 		return cost
 
