@@ -36,8 +36,9 @@ def test(opts):
 			#des_y = y[index]
 			des_y = np.argmax(y[index])
 			#print(hhh)
-			print(des_y)
+
 			est_y = np.argmax(est_y)
+			print(est_y ,  des_y)
 			#print(est_y , des_y)
 			#est_y = np.round(est_y)
 			if (est_y==des_y):

@@ -23,7 +23,7 @@ class Model():
 
 		self.w[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
 		self.b[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
-	
+
 		self.w[3] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
 		self.b[3] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
 
