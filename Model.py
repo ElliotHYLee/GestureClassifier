@@ -30,8 +30,6 @@ class Model():
 		self.w[4] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
 		self.b[4] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
 
-		self.w[5] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.output_size]))
-		self.b[5] =  tf.Variable(tf.random_normal([opts.output_size]))
 
 		self.pred = self.predict(self.input)
 		self.cost = tf.reduce_mean(tf.pow(self.pred-self.desired_output, 2))/2
