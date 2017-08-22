@@ -30,8 +30,8 @@ def test(opts):
 		saver.restore(sess,opts.save_path)
 		[x,y] = Reader().get_test_data()
 		estimated_y = m.test(sess, x)
-		index = 0;
-		sum = 0;
+		index = 0
+		sum = 0
 		for est_y in estimated_y:
 			#des_y = y[index]
 			des_y = np.argmax(y[index])
@@ -46,9 +46,10 @@ def test(opts):
 			#print(sum)
 			#a = [est_y[0],  des_y]
 			#print(a)
+
 			index =  index + 1
 
-		accuracy = sum/12000
+		accuracy = sum*1.0/index
 		print("accuracy: ", np.round(accuracy,2))
 
 		#print(y)

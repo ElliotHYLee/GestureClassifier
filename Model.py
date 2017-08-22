@@ -20,7 +20,7 @@ class Model():
 		self.w[1] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
 		self.b[1] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
 
-		self.w[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
+		self.w[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.output_size]))
 		self.b[2] =  tf.Variable(tf.random_normal([opts.output_size]))
 
 		self.pred = self.predict(self.input)
@@ -28,8 +28,8 @@ class Model():
 		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.learning_rate).minimize(self.cost)
 
 	def predict(self , x):
-		ans_here_1 = tf.nn.tanh( tf.matmul(x, self.w[0]) + self.b[0])
-		ans_here_2 = tf.nn.tanh( tf.matmul(ans_here_1, self.w[1]) + self.b[1])
+		ans_here_1 = tf.nn.tanh(tf.matmul(x, self.w[0]) + self.b[0])
+		ans_here_2 = tf.nn.tanh(tf.matmul(ans_here_1, self.w[1]) + self.b[1])
 		ans_here_3 =  tf.nn.softmax(tf.matmul(ans_here_2, self.w[2]) + self.b[2])
 		return ans_here_3
 
