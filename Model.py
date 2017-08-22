@@ -11,9 +11,8 @@ class Model():
 		self.input = tf.placeholder(tf.float32, [ None, opts.input_size]) #None is batch size
 		self.desired_output = tf.placeholder(tf.float32, [ None, opts.output_size])
 
-		self.w = [None,None,None,None,None,None];
-		self.b = [None,None,None,None,None,None];
-
+		self.w = [None,None,None]
+		self.b = [None,None,None]
 
 		self.w[0] =  tf.Variable(tf.random_normal([opts.input_size, opts.num_hidden_units]))
 		self.b[0] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
@@ -22,30 +21,19 @@ class Model():
 		self.b[1] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
 
 		self.w[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
-		self.b[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
-
-		self.w[3] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
-		self.b[3] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
-
-		self.w[4] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.num_hidden_units]))
-		self.b[4] =  tf.Variable(tf.random_normal([opts.num_hidden_units]))
-
+		self.b[2] =  tf.Variable(tf.random_normal([opts.output_size]))
 
 		self.pred = self.predict(self.input)
 		self.cost = tf.reduce_mean(tf.pow(self.pred-self.desired_output, 2))/2
 		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.learning_rate).minimize(self.cost)
 
 	def predict(self , x):
-		ans_here_1 = tf.nn.sigmoid( tf.matmul(x, self.w[0]) + self.b[0])
-		ans_here_2 = tf.nn.sigmoid( tf.matmul(ans_here_1, self.w[1]) + self.b[1])
-		ans_here_3 = tf.nn.sigmoid( tf.matmul(ans_here_2, self.w[2]) + self.b[2])
-		ans_here_4 = tf.nn.sigmoid( tf.matmul(ans_here_3, self.w[3]) + self.b[3])
-		ans_here_5 = tf.nn.sigmoid( tf.matmul(ans_here_4, self.w[4]) + self.b[4])
-		ans_here_6 =  tf.nn.sigmoid(tf.matmul(ans_here_5, self.w[5]) + self.b[5])
-		return ans_here_6
+		ans_here_1 = tf.nn.tanh( tf.matmul(x, self.w[0]) + self.b[0])
+		ans_here_2 = tf.nn.tanh( tf.matmul(ans_here_1, self.w[1]) + self.b[1])
+		ans_here_3 =  tf.nn.softmax(tf.matmul(ans_here_2, self.w[2]) + self.b[2])
+		return ans_here_3
 
 	def train(self, sess, x, y):
-		#print(y)
 		cost , _   = sess.run([self.cost,  self.optimizer ], {self.input: x, self.desired_output: y   })
 		return cost
 
