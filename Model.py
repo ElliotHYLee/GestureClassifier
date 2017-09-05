@@ -24,7 +24,7 @@ class Model():
 		self.b[2] =  tf.Variable(tf.random_normal([opts.output_size]))
 
 		self.pred = self.predict(self.input)
-		self.cost = tf.reduce_mean(tf.pow(self.pred-self.desired_output, 2))/2
+		self.cost = tf.reduce_mean(tf.pow(self.pred-self.desired_output, 2))
 		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.learning_rate).minimize(self.cost)
 
 	def predict(self , x):
@@ -34,7 +34,7 @@ class Model():
 		return ans_here_3
 
 	def train(self, sess, x, y):
-		cost , _   = sess.run([self.cost,  self.optimizer ], {self.input: x, self.desired_output: y   })
+		cost , _   = sess.run([self.cost, self.optimizer], {self.input: x, self.desired_output: y})
 		return cost
 
 	def test(self, sess, x ):

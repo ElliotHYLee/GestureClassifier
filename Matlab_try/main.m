@@ -13,7 +13,7 @@ targetsTest = testData(:,1:8);
 
 
 % patternnet set up
-hiddenLayerSize = [10 10 10];
+hiddenLayerSize = [10];
 net = patternnet(hiddenLayerSize);
 net.trainParam.epochs = 100000;
 net.divideParam.trainRatio = 70/100;
