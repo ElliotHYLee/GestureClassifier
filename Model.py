@@ -28,14 +28,24 @@ class Model():
 		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.learning_rate).minimize(self.cost)
 
 	def predict(self , x):
+
 		ans_here_1 = tf.nn.tanh(tf.matmul(x, self.w[0]) + self.b[0])
 		ans_here_2 = tf.nn.tanh(tf.matmul(ans_here_1, self.w[1]) + self.b[1])
 		ans_here_3 =  tf.nn.softmax(tf.matmul(ans_here_2, self.w[2]) + self.b[2])
 		return ans_here_3
 
 	def train(self, sess, x, y):
-		cost , _   = sess.run([self.cost, self.optimizer], {self.input: x, self.desired_output: y})
+		normX = self.mapMinMax(x)
+		#print(normX.shape)
+		cost , _   = sess.run([self.cost, self.optimizer], {self.input: normX, self.desired_output: y})
 		return cost
 
 	def test(self, sess, x ):
 		return sess.run(self.pred, {self.input: x})
+
+	def mapMinMax(self, x):
+		maxNum = np.max(x)
+		minNum = np.min(x)
+		newX = 2*(x - minNum)/(maxNum-minNum) -1
+		return newX
+		#print(newX)
