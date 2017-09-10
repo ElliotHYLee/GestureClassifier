@@ -7,35 +7,28 @@ from pathlib import Path
 import sys
 
 def train(opts):
-	m = Model(opts)
-	saver = tf.train.Saver()
-	[x,y] = Reader().get_next_batch()     #-----test
-	with tf.Session() as sess:
-		sess.run(tf.global_variables_initializer())
-		#isFirst = True
-		for epoch in range(opts.max_epochs):
+    m = Model(opts)
+    saver = tf.train.Saver()
+    [x,y] = Reader().get_next_batch()
+
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        for epoch in range(opts.max_epochs):
 			if Path(opts.save_path+'checkpoint').is_file():
 				saver.restore(sess,opts.save_path)
-				#isFirst = False
 			epoch = sess.run(m.epoch_number)
-			#sess.run(tf.assign(m.learning_rate, opts.init_learning_rate) )
-			#print(x.shape)
-			#for i in range(x.shape[0]):
-			#sess.run(tf.assign(m.learning_rate, opts.init_learning_rate* (opts.decay_rate ** m.epoch_number ) ) )
-			#print((x[i].reshape((1,112))).shape)
-			# each_row_input = (x[i].reshape((1,112)))
-			# each_row_label = y[i].reshape((1,8))
-			#c = m.train(sess, each_row_input, each_row_label)
-			c, acc, p_n = m.train(sess, x, y)
+			c, acc, p_n,be,inp = m.train(sess, x, y)
 			if epoch%10==0:
 				print('epoch number: '+ str(sess.run(m.epoch_number))+ ', acc: ' + str(acc))
-				#c = sess.run(tf.reduce_sum(tf.multiply(c, c)))
-				print('training mse: '+ str(c)+'\n')
 				print('p_n '+ str(p_n)+'\n')
-				print(y)
+				print('y '+str(y))
+				print('be '+str(be))
+				print('input norm: '+str(inp))
+				print('input: '+str(x[:20,:]))
+				print('training mse: ' + str(c) + '\n')
+				print('Acc ' + str(acc))
 			sess.run(tf.assign(m.epoch_number,m.epoch_number+1))
 			saver.save(sess,opts.save_path)
-
 
 def test(opts):
 	m = Model(opts)
@@ -50,7 +43,6 @@ def test(opts):
 		for i in range (0, numRow-1):
 			label = np.argmax(y[i])
 			est_label = np.argmax(est_y[i])
-		#	print(est_y[i])
 			if (label == est_label):
 				mySum = mySum + 1
 		accuracy = mySum*1.0/numRow

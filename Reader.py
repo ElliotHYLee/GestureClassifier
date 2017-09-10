@@ -2,6 +2,7 @@ import numpy as np
 import random
 import csv
 
+
 class Reader():
 	def __init__(self):
 		pass
