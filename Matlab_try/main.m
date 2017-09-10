@@ -11,7 +11,6 @@ inputsTest = testData(:,9:end);
 targetsTest = testData(:,1:8);
 
 
-
 % patternnet set up
 hiddenLayerSize = [10];
 net = patternnet(hiddenLayerSize);

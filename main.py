@@ -10,19 +10,31 @@ def train(opts):
 	m = Model(opts)
 	saver = tf.train.Saver()
 	[x,y] = Reader().get_next_batch()     #-----test
-	print(y)
 	with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
-		for epoch in range(opts.max_epochs):
+		isFirst = True
+		for epoch in range(opts.max_epochs) and isFirst:
 			if Path(opts.save_path+'checkpoint').is_file():
 				saver.restore(sess,opts.save_path)
+				isFirst = False
 			epoch = sess.run(m.epoch_number)
+			#sess.run(tf.assign(m.learning_rate, opts.init_learning_rate) )
+			#print(x.shape)
+			#for i in range(x.shape[0]):
 			sess.run(tf.assign(m.learning_rate, opts.init_learning_rate* (opts.decay_rate ** m.epoch_number ) ) )
-			print('epoch number: '+ str(sess.run(m.epoch_number))+ ', learning rate: '+ str(sess.run(m.learning_rate)))
-			print('training mse: '+ str(m.train(sess, x, y))+'\n')
-
+			#print((x[i].reshape((1,112))).shape)
+			# each_row_input = (x[i].reshape((1,112)))
+			# each_row_label = y[i].reshape((1,8))
+			#c = m.train(sess, each_row_input, each_row_label)
+			c = m.train(sess, x, y)
+			if epoch%1==0:
+				print('epoch number: '+ str(sess.run(m.epoch_number))+ ', learning rate: '+ str(sess.run(m.learning_rate)))
+				#c = sess.run(tf.reduce_sum(tf.multiply(c, c)))
+				print('training mse: '+ str(c)+'\n')
 			sess.run(tf.assign(m.epoch_number,m.epoch_number+1))
 			saver.save(sess,opts.save_path)
+
+
 def test(opts):
 	m = Model(opts)
 	saver = tf.train.Saver()
@@ -30,31 +42,17 @@ def test(opts):
 		sess.run(tf.global_variables_initializer())
 		saver.restore(sess,opts.save_path)
 		[x,y] = Reader().get_test_data()
-		estimated_y = m.test(sess, x)
-		index = 0
-		sum = 0
-		for est_y in estimated_y:
-			#des_y = y[index]
-			des_y = np.argmax(y[index])
-			#print(hhh)
-
-			est_y = np.argmax(est_y)
-			print(est_y ,  des_y)
-			#print(est_y , des_y)
-			#est_y = np.round(est_y)
-			if (est_y==des_y):
-				sum = sum + 1;
-			#print(sum)
-			#a = [est_y[0],  des_y]
-			#print(a)
-
-			index =  index + 1
-
-		accuracy = sum*1.0/index
+		est_y = m.test(sess, x)
+		mySum = 0
+		numRow = x.shape[0]
+		for i in range (0, numRow-1):
+			label = np.argmax(y[i])
+			est_label = np.argmax(est_y[i])
+		#	print(est_y[i])
+			if (label == est_label):
+				mySum = mySum + 1
+		accuracy = mySum*1.0/numRow
 		print("accuracy: ", np.round(accuracy,2))
-
-		#print(y)
-		#print(estimated_y)
 
 if __name__ == '__main__':
 	if sys.argv[1] == 'Train':

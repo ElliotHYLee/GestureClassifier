@@ -24,23 +24,23 @@ class Model():
 		self.b[2] =  tf.Variable(tf.random_normal([opts.output_size]))
 
 		self.pred = self.predict(self.input)
-		self.cost = tf.reduce_mean(tf.pow(self.pred-self.desired_output, 2))
+		self.cost = tf.nn.sigmoid_cross_entropy_with_logits(logits=self.pred,  labels=self.desired_output)
 		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.learning_rate).minimize(self.cost)
 
 	def predict(self , x):
-
 		ans_here_1 = tf.nn.tanh(tf.matmul(x, self.w[0]) + self.b[0])
 		ans_here_2 = tf.nn.tanh(tf.matmul(ans_here_1, self.w[1]) + self.b[1])
 		ans_here_3 =  tf.nn.softmax(tf.matmul(ans_here_2, self.w[2]) + self.b[2])
 		return ans_here_3
 
 	def train(self, sess, x, y):
-		normX = self.mapMinMax(x)
-		#print(normX.shape)
-		cost , _   = sess.run([self.cost, self.optimizer], {self.input: normX, self.desired_output: y})
+		x = self.mapMinMax(x)
+		cost , _   = sess.run([self.cost, self.optimizer], {self.input: x, self.desired_output: y})
+		#cost , _   = sess.run(self.optimizer, feed_dict={self.input: x, self.desired_output: y})
 		return cost
 
 	def test(self, sess, x ):
+		x = self.mapMinMax(x)
 		return sess.run(self.pred, {self.input: x})
 
 	def mapMinMax(self, x):
