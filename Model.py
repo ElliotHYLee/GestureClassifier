@@ -34,7 +34,7 @@ class Model():
 	def predict(self , x):
 		ans_here_1 = tf.nn.softmax(tf.matmul(x, self.w[0]) + self.b[0])
 		# ans_here_2 = tf.nn.tanh(tf.matmul(ans_here_1, self.w[1]) + self.b[1])
-		logits=tf.matmul(ans_here_1, self.w[2]) + self.b[2]
+		logits = tf.matmul(ans_here_1, self.w[2]) + self.b[2]
 		ans_here_3 =  tf.nn.softmax(logits)
 		return ans_here_3 , logits
 
