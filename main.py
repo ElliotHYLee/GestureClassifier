@@ -12,25 +12,27 @@ def train(opts):
 	[x,y] = Reader().get_next_batch()     #-----test
 	with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
-		isFirst = True
-		for epoch in range(opts.max_epochs) and isFirst:
+		#isFirst = True
+		for epoch in range(opts.max_epochs):
 			if Path(opts.save_path+'checkpoint').is_file():
 				saver.restore(sess,opts.save_path)
-				isFirst = False
+				#isFirst = False
 			epoch = sess.run(m.epoch_number)
 			#sess.run(tf.assign(m.learning_rate, opts.init_learning_rate) )
 			#print(x.shape)
 			#for i in range(x.shape[0]):
-			sess.run(tf.assign(m.learning_rate, opts.init_learning_rate* (opts.decay_rate ** m.epoch_number ) ) )
+			#sess.run(tf.assign(m.learning_rate, opts.init_learning_rate* (opts.decay_rate ** m.epoch_number ) ) )
 			#print((x[i].reshape((1,112))).shape)
 			# each_row_input = (x[i].reshape((1,112)))
 			# each_row_label = y[i].reshape((1,8))
 			#c = m.train(sess, each_row_input, each_row_label)
-			c = m.train(sess, x, y)
-			if epoch%1==0:
-				print('epoch number: '+ str(sess.run(m.epoch_number))+ ', learning rate: '+ str(sess.run(m.learning_rate)))
+			c, acc, p_n = m.train(sess, x, y)
+			if epoch%10==0:
+				print('epoch number: '+ str(sess.run(m.epoch_number))+ ', acc: ' + str(acc))
 				#c = sess.run(tf.reduce_sum(tf.multiply(c, c)))
 				print('training mse: '+ str(c)+'\n')
+				print('p_n '+ str(p_n)+'\n')
+				print(y)
 			sess.run(tf.assign(m.epoch_number,m.epoch_number+1))
 			saver.save(sess,opts.save_path)
 

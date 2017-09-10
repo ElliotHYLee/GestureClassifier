@@ -14,9 +14,9 @@ class Reader():
 		numRow = result.shape[0]
 		y = result[:,0:8]
 		labels = np.zeros((numRow, 1))
-		for i in range(0, numRow-1):
-			labels[i] = np.argmax(y[i,:])
-		# labels = y
+		#for i in range(0, numRow-1):
+		#	labels[i] = np.argmax(y[i,:])
+		labels = y
 		x = result[:,8:numCol]
 		return [x, labels]
 

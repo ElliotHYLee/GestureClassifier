@@ -5,7 +5,6 @@ import random
 class Model():
 	def __init__(self , opts):
 		self.opts = opts
-		self.learning_rate = tf.Variable(opts.init_learning_rate, trainable=False)
 		self.epoch_number = tf.Variable(0.0, trainable=False)
 
 		self.input = tf.placeholder(tf.float32, [ None, opts.input_size]) #None is batch size
@@ -23,21 +22,26 @@ class Model():
 		self.w[2] =  tf.Variable(tf.random_normal([opts.num_hidden_units, opts.output_size]))
 		self.b[2] =  tf.Variable(tf.random_normal([opts.output_size]))
 
-		self.pred = self.predict(self.input)
-		self.cost = tf.nn.sigmoid_cross_entropy_with_logits(logits=self.pred,  labels=self.desired_output)
-		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.learning_rate).minimize(self.cost)
+		self.pred ,logits= self.predict(self.input)
+		bool_eq=tf.equal(tf.argmax(self.pred,axis=1),tf.argmax(self.desired_output,axis=1))
+		self.pp=self.pred
+		self.predict_acc_op=tf.reduce_mean(tf.cast(bool_eq,tf.float32))
+		self.cost = tf.nn.sigmoid_cross_entropy_with_logits(logits=logits,  labels=self.desired_output)
+		self.cost =tf. reduce_mean(self.cost)
+		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=100).minimize(self.cost)
 
 	def predict(self , x):
 		ans_here_1 = tf.nn.tanh(tf.matmul(x, self.w[0]) + self.b[0])
-		ans_here_2 = tf.nn.tanh(tf.matmul(ans_here_1, self.w[1]) + self.b[1])
-		ans_here_3 =  tf.nn.softmax(tf.matmul(ans_here_2, self.w[2]) + self.b[2])
-		return ans_here_3
+		# ans_here_2 = tf.nn.tanh(tf.matmul(ans_here_1, self.w[1]) + self.b[1])
+		logits=tf.matmul(ans_here_1, self.w[2]) + self.b[2]
+		ans_here_3 =  tf.nn.softmax(logits)
+		return ans_here_3 , logits
 
 	def train(self, sess, x, y):
 		x = self.mapMinMax(x)
-		cost , _   = sess.run([self.cost, self.optimizer], {self.input: x, self.desired_output: y})
+		cost , _ ,acc,p_np  = sess.run([self.cost, self.optimizer,self.predict_acc_op,self.pp], {self.input: x, self.desired_output: y})
 		#cost , _   = sess.run(self.optimizer, feed_dict={self.input: x, self.desired_output: y})
-		return cost
+		return cost, acc, p_np
 
 	def test(self, sess, x ):
 		x = self.mapMinMax(x)
