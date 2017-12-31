@@ -1,11 +1,16 @@
 # Gesture Classification using Kinect
 
-Description <br>
+Kinect skeletal frame based gesture classfication<br>
 
 
 [Click for Youtube video:
 <img src="d">](https://www.youtube.com/watch?v=NoJuUvAMqN4)
 
+## ToDo
+- Add the "ghost" class in the data set.
+- plot the result in python.
+- Apply CNN based on raw RGB images.
+- Apply face recognition for operator identification.
 
 ## Problem Setup
 
@@ -37,7 +42,7 @@ Next, the four different gestures are fed as well. Idle, move forward, move back
 
 
 ## Results
-
+Accuracy= 0.90
 <ul>
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/Test.jpg" width="400">
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/Train.jpg" width="400">
