@@ -3,7 +3,7 @@
 Kinect skeletal frame based gesture classfication<br>
 
 
-[Click for Youtube video:
+[Click for Youtube video:<br>
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/Capture.JPG" width="500">](https://www.youtube.com/watch?v=NoJuUvAMqN4)
 
 
