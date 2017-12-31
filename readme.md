@@ -23,12 +23,16 @@ Next, the four different gestures are fed as well. Idle, move forward, move back
 
 - Idle
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/idel.jpg" width="400">
+
 - Move Forward
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/proceed_gesutre.jpg" width="400">
+
 - Move Back
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/retreat_g.jpg" width="400">
+
 - Takeoff/landing
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/takeoff.JPG" width="400">
+
 </ul>
 
 
