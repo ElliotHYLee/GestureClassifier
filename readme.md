@@ -6,6 +6,14 @@ Kinect skeletal frame based gesture classfication<br>
 [Click for Youtube video:
 <img src="d">](https://www.youtube.com/watch?v=NoJuUvAMqN4)
 
+## run
+
+```
+python main.py Train
+python main.py Test
+```
+
+
 ## ToDo
 - Add the "ghost" class in the data set.
 - plot the result in python.
