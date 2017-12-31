@@ -9,7 +9,9 @@ Kinect skeletal frame based gesture classfication<br>
 
 ## Prereq.s
 
-Tensorflow, numpy, sklearn, and etc.
+Tensorflow
+
+python libraries:
 
 ```
 chmod +x pythonReady.sh
