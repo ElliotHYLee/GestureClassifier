@@ -8,7 +8,7 @@ Kinect skeletal frame based gesture classfication<br>
 
 
 [Click for Youtube video: real-time application:<br>
-<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/Capture1.JPG" width="500">](https://www.youtube.com/watch?v=NoJuUvAMqN4)
+<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/Capture1.JPG" width="500">](https://www.youtube.com/watch?v=apn6Zooruvg)
 
 
 ## Prereq.s
