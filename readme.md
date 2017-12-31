@@ -11,6 +11,11 @@ Kinect skeletal frame based gesture classfication<br>
 
 Tensorflow, numpy, sklearn, and etc.
 
+```
+chmod +x pythonReady.sh
+yes "yes" | sudo sh pythonReady.sh
+```
+
 ## run
 
 ```
