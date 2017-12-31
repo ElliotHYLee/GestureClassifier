@@ -12,8 +12,10 @@ Description <br>
 description
 
 <ul>
+<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/result_human_new.jpg" width="400">
 <img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/ghostSkeleton.JPG" width="400">
-<img src="https://github.com/ElliotHYLee/OpticalFlow2VelocityEstimation/blob/master/Images/seq2.png" width="400">
-<img src="https://github.com/ElliotHYLee/OpticalFlow2VelocityEstimation/blob/master/Images/seq8.png" width="400">
-<img src="https://github.com/ElliotHYLee/OpticalFlow2VelocityEstimation/blob/master/Images/seq9.png" width="400">
+<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/idel.jpg" width="400">
+<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/proceed_gesutre.jpg" width="400">
+<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/retreat_g.jpg" width="400">
+<img src="https://github.com/ElliotHYLee/GestureClassifier/blob/master/Images/takeoff.JPG" width="400">
 </ul>
