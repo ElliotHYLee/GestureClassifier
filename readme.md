@@ -6,6 +6,11 @@ Kinect skeletal frame based gesture classfication<br>
 [Click for Youtube video:
 <img src="d">](https://www.youtube.com/watch?v=NoJuUvAMqN4)
 
+
+## Prereq.s
+
+Tensorflow, numpy, sklearn, and etc.
+
 ## run
 
 ```
